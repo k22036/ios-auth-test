@@ -1,9 +1,16 @@
 import firebase_admin
 from firebase_admin import credentials, auth
 from flask import Flask, request, jsonify
+from settings import Settings
+from os.path import join, dirname
+from urllib.parse import quote
 
-path_to_json = "path/to/serviceAccountKey.json"
-cred = credentials.Certificate(path_to_json)
+
+# Settings インスタンス
+settings = Settings(join(dirname(__file__), '.env'))
+
+path_to_firebase_json = settings.path_to_firebase_json
+cred = credentials.Certificate(path_to_firebase_json)
 firebase_admin.initialize_app(cred)
 app = Flask(__name__)
 
