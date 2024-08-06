@@ -3,7 +3,6 @@ from firebase_admin import credentials, auth
 from flask import Flask, request, jsonify
 from settings import Settings
 from os.path import join, dirname
-from urllib.parse import quote
 
 
 # Settings インスタンス
