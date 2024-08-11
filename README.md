@@ -21,3 +21,5 @@ APIに対してリクエストを送ります
 [URLsessionを用いたHTTPリクエストの方法(Swift, Xcode)](https://qiita.com/shungo_m/items/64564fd822a7558ac7b1)
 
 [HTTPリクエスト概要](https://github.com/mixi-inc/iOSTraining/blob/master/Swift/pages/day3/4-2_HTTP-request-basic.md)
+
+[HTTPCookieStorageによるCookieの操作](https://qiita.com/maebaru/items/fc2812df735473867382)

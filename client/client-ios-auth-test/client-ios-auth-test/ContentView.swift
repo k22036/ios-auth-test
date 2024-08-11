@@ -51,7 +51,8 @@ struct LoginView: View {
                 Button(action: {
                     let url = URL(string: "http://127.0.0.1:5000/signup")!
                     var request = URLRequest(url: url)
-                    request.httpMethod = "POST"      // Postリクエストを送る(このコードがないとGetリクエストになる)
+                    request.httpMethod = "POST"
+                    // Postリクエストを送る(このコードがないとGetリクエストになる)
                     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                     var params = Dictionary<String, String>()
                     params["email"] = inputEmail
@@ -65,8 +66,18 @@ struct LoginView: View {
                     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                         guard let data = data else { return }
                         do {
-                            let object = try JSONSerialization.jsonObject(with: data, options: [])
-                            print(object)
+                            // JSONデータを辞書形式に変換
+                            if let object = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                               let token = object["token"] as? String { // トークンを取得
+                                
+                                let cookieManager = CookieManager()
+                                let key = "authtoken"
+                                    
+                                // クッキーを設定
+                                cookieManager.setCookie(url: url, key: key, value: token)
+                            } else {
+                                print("Error: Token not found or invalid JSON format.")
+                            }
                         } catch let error {
                             print(error)
                         }
@@ -82,6 +93,7 @@ struct LoginView: View {
                         .background(Color.accentColor)
                         .cornerRadius(8)
                 })
+                
 
                 Spacer()
             }
